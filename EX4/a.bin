@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE* fp;
+    int a[] = {0,1,2};
+    char b[] = "ABC";
+    float c[] = {1.1,1.2,1.3};
+    int ra[4];
+    char rb[4];
+    float rc[4];
+    
+    fp = fopen("a.bin", "w+");
+    fwrite(a, sizeof(int), 3, fp);
+    fwrite(b, sizeof(int), 3, fp);
+    fwrite(c, sizeof(int), 3, fp);
+    fseek(fp, 0, SEEK_SET);
+    fread(a, sizeof(int), 3, fp);
+    fread(b, sizeof(int), 3, fp);
+    fread(c, sizeof(int), 3, fp);
+
+    
+    for (int i = 0;i < 3; i++) {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+    for (int i = 0;i < 3; i++) {
+        printf("%c ", b[i]);
+    }
+    printf("\n");
+    for (int i = 0;i < 3; i++) {
+        printf("%.1f ", c[i]);
+    }
+    
+    fclose(fp);
+    return 0;
+}
